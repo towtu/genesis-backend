@@ -19,7 +19,6 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token['username'] = user.username
         token['email'] = user.email
         token['bio'] = user.profile.bio
-        token['image'] = user.profile.image
         token['verified'] = user.profile.verified
 
         return token
@@ -59,6 +58,17 @@ class RegisterSerializer(serializers.ModelSerializer):
         return user
     
 class TodoSerializer(serializers.ModelSerializer):
+    title = serializers.CharField(required=True)  
+
     class Meta:
         model = Todo
-        fields = ['id', 'user', 'title', 'completed', 'date']
+        fields = ['id', 'user', 'title', 'completed', 'mark_as_important', 'date', 'due_date', 'status']  
+        read_only_fields = ['user']
+
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ['first_name', 'last_name', 'bio', 'verified']
+
+
+    

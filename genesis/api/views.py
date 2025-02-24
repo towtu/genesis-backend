@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from api.models import User, Profile, Todo
-from api.serializer import UserSerializer, MyTokenObtainPairSerializer, RegisterSerializer, TodoSerializer
+from api.serializer import UserSerializer, MyTokenObtainPairSerializer, RegisterSerializer, TodoSerializer, ProfileSerializer
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import generics, status
@@ -39,11 +39,11 @@ class RegisterView(generics.CreateAPIView):
 @permission_classes([IsAuthenticated])
 def dashboard(request):
     if request.method == 'GET':
-        context = f"Hey {request.user.username}, Welcome to your dashboard"
+        context = f"Hey {request.user.username}, Welcome to your Genesis"
         return Response({'response': context}, status=status.HTTP_200_OK)
-
+    
     elif request.method == 'POST':
-        data = request.data  # Use request.data to handle JSON
+        data = request.data  
         text = data.get('text', '')
 
         context = f"Hey {request.user.username}, You posted: {text}"
@@ -57,8 +57,10 @@ class TodoListViews(generics.ListCreateAPIView):
 
     def get_queryset(self):
         return Todo.objects.filter(user=self.request.user)
+         
 
     def perform_create(self, serializer):
+        print("Incoming data:", self.request.data)  
         serializer.save(user=self.request.user)
 
 class TodoDetailViews(generics.RetrieveUpdateDestroyAPIView):
@@ -79,3 +81,33 @@ class TodoMarkAsCompleted(generics.UpdateAPIView):
         todo.completed = True
         todo.save()
         return todo
+    
+class TodoMarkAsImportant(generics.UpdateAPIView):
+    serializer_class = TodoSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        todo_id = self.kwargs['todo_id']
+        todo = Todo.objects.get(id=todo_id, user=self.request.user)
+        todo.mark_as_important = not todo.mark_as_important  # Toggle the important status
+        todo.save()
+        return todo
+    
+@api_view(['GET', 'PUT'])
+@permission_classes([IsAuthenticated])
+def profile_view(request):
+    profile = request.user.profile
+    if request.method == 'GET':
+        serializer = ProfileSerializer(profile)
+        return Response(serializer.data)
+    elif request.method == 'PUT':
+        serializer = ProfileSerializer(profile, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=400)
+ 
+
+   
+
+

@@ -18,7 +18,6 @@ class Profile(models.Model):
     first_name = models.CharField(max_length=100, blank=True)
     last_name = models.CharField(max_length=100, blank=True)
     bio = models.TextField(max_length=300)
-    image = models.URLField(default="default.jpg")
     verified = models.BooleanField(default=False)
 
     def __str__(self):
@@ -38,8 +37,16 @@ post_save.connect(save_user_profile, sender=User)
 class Todo(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=1000)
+    mark_as_important = models.BooleanField(default=False)
     completed = models.BooleanField(default=False)
     date = models.DateTimeField(auto_now_add=True)
+    due_date = models.DateTimeField(blank=True, null=True)  
+    STATUS_CHOICES = [
+        ('not_started', 'Not Started'),
+        ('in_progress', 'In Progress'),
+        ('completed', 'Completed'),
+    ]
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='not_started') 
 
     def __str__(self):
         return self.title[:30]
