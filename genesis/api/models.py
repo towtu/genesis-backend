@@ -39,7 +39,7 @@ class Todo(models.Model):
     title = models.CharField(max_length=1000)
     mark_as_important = models.BooleanField(default=False)
     completed = models.BooleanField(default=False)
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     due_date = models.DateTimeField(blank=True, null=True)  
     STATUS_CHOICES = [
         ('not_started', 'Not Started'),

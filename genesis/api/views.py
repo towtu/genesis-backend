@@ -56,8 +56,11 @@ class TodoListViews(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return Todo.objects.filter(user=self.request.user)
-         
+        queryset = Todo.objects.filter(user=self.request.user)
+        completed = self.request.query_params.get('completed', None)
+        if completed is not None:
+            queryset = queryset.filter(completed=completed.lower() == 'true')
+        return queryset  
 
     def perform_create(self, serializer):
         print("Incoming data:", self.request.data)  
@@ -107,7 +110,13 @@ def profile_view(request):
             return Response(serializer.data)
         return Response(serializer.errors, status=400)
  
+class TodoCalendarView(generics.ListAPIView):
+    serializer_class = TodoSerializer
+    permission_classes = [IsAuthenticated]
 
+    def get_queryset(self):
+        # Filter todos by the logged-in user and ensure they have a due_date
+        return Todo.objects.filter(user=self.request.user, due_date__isnull=False)
    
 
 

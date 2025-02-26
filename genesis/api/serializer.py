@@ -64,6 +64,10 @@ class TodoSerializer(serializers.ModelSerializer):
         model = Todo
         fields = ['id', 'user', 'title', 'completed', 'mark_as_important', 'date', 'due_date', 'status']  
         read_only_fields = ['user']
+        extra_kwargs = {
+            'date': {'required': False},  # Make date optional
+            'due_date': {'required': False},  # Make due_date optional
+        }
 
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
