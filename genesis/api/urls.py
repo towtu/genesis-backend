@@ -14,4 +14,6 @@ urlpatterns = [
     path('profile/', views.profile_view, name='profile'),
     path('todo-important/<int:todo_id>/', views.TodoMarkAsImportant.as_view(), name='todo-mark-as-important'),
     path('calendar-todos/', views.TodoCalendarView.as_view(), name='calendar-todos'),
+    path('tasks/stats/', views.task_stats_view, name='task-stats'),
+    path('change-password/', views.change_password, name='change-password'),    
 ]
