@@ -197,3 +197,15 @@ DJOSER = {
     "LOGIN_FIELD": "email",
 }
 
+# Static files (CSS, JavaScript, Images)
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # Directory where static files will be collected
+
+# Media files (user-uploaded files)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'  # Directory where media files will be stored
+
+# During development, serve static files from these directories
+if DEBUG:
+    STATICFILES_DIRS = [BASE_DIR / 'static']
+
