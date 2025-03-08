@@ -27,6 +27,7 @@ SECRET_KEY = 'django-insecure-@($c!!#%w$i@2977$xims7k+48in&h7288dprie7(o43)gvn_(
 DEBUG = True
 
 ALLOWED_HOSTS = ['3.107.209.81', 'genesis-towtu-towtus-projects.vercel.app']
+CORS_ALLOWED_ORIGINS = ["https://genesis-towtu-towtus-projects.vercel.app",]
 
 
 # Application definition
