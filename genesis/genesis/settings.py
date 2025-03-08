@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-@($c!!#%w$i@2977$xims7k+48in&h7288dprie7(o43)gvn_(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['3.107.209.81', '*']
+ALLOWED_HOSTS = ['3.107.209.81', 'genesis-towtu-towtus-projects.vercel.app']
 
 
 # Application definition
@@ -179,7 +179,6 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
 
-CORS_ALLOW_ALL_ORIGINS = True
 
 AUTH_USER_MODEL = 'api.User'
 
