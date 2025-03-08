@@ -209,3 +209,7 @@ MEDIA_ROOT = BASE_DIR / 'media'  # Directory where media files will be stored
 if DEBUG:
     STATICFILES_DIRS = [BASE_DIR / 'static']
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
