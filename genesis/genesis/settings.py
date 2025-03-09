@@ -26,8 +26,8 @@ SECRET_KEY = 'django-insecure-@($c!!#%w$i@2977$xims7k+48in&h7288dprie7(o43)gvn_(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'genesis-towtu-towtus-projects.vercel.app']
-CORS_ALLOWED_ORIGINS = ["https://genesis-towtu-towtus-projects.vercel.app",]
+ALLOWED_HOSTS = []
+CORS_ALLOW_ALL_ORIGINS = True
 
 
 # Application definition
