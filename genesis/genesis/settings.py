@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-@($c!!#%w$i@2977$xims7k+48in&h7288dprie7(o43)gvn_(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['3.107.209.81', 'genesis-towtu-towtus-projects.vercel.app']
+ALLOWED_HOSTS = ['127.0.0.1', 'genesis-towtu-towtus-projects.vercel.app']
 CORS_ALLOWED_ORIGINS = ["https://genesis-towtu-towtus-projects.vercel.app",]
 
 
@@ -197,19 +197,3 @@ DJOSER = {
     "LOGIN_FIELD": "email",
 }
 
-# Static files (CSS, JavaScript, Images)
-STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'  # Directory where static files will be collected
-
-# Media files (user-uploaded files)
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'  # Directory where media files will be stored
-
-# During development, serve static files from these directories
-if DEBUG:
-    STATICFILES_DIRS = [BASE_DIR / 'static']
-
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
